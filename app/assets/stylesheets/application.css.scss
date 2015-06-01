@@ -1,0 +1,33 @@
+@import 'bootstrap';
+
+.margin-bottom-01 { margin-bottom: 0.1em; }
+.margin-left-13 { margin-left: 1.5em; }
+.margin-top-05 { margin-top: 0.5em; }
+.margin-top-10 { margin-top: 1.0em; }
+.margin-top-15 { margin-top: 1.5em; }
+.margin-top-20 { margin-top: 2.0em; }
+.margin-top-25 { margin-top: 2.5em; }
+.margin-top-30 { margin-top: 3.0em; }
+.margin-top-40 { margin-top: 4.0em; }
+.margin-top-50 { margin-top: 5.0em; }
+
+.login {
+  width: 50%;
+  margin: auto;
+  height: 410px;
+  margin-top: 150px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+}
+
+.logo {
+  background: image-url('claro.png') no-repeat center;
+  background-size: 220px 220px;
+  background-position: 60px 18px;
+  height: 300px;
+  font-size: 1.8em;
+  padding-top: 255px;
+  text-align: center;
+  font-family: inherit;
+}
