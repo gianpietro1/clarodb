@@ -1,3 +1,4 @@
+@import 'bootstrap-sprockets';
 @import 'bootstrap';
 
 .margin-bottom-01 { margin-bottom: 0.1em; }
@@ -26,8 +27,64 @@
   background-size: 220px 220px;
   background-position: 60px 18px;
   height: 300px;
+  font-weight: bold;
   font-size: 1.8em;
   padding-top: 255px;
   text-align: center;
   font-family: inherit;
+  float: left;
+}
+
+.logotitle {
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: image-url('claro.png') no-repeat center;
+  background-size: 50px 50px;
+}
+
+.pagetitle {
+  line-height: 10px;
+  margin-left: 60px;
+}
+
+.appblock {
+  display: block;
+  width: 255px;
+  height: 200px;
+  float: left;
+  margin-top: 100px;
+  text-align: center;
+  background-color: rgba(255,255,255,0.6);
+  color: #3c3c33;
+  padding: 10px;
+  border-radius: 10px;
+  margin-right: 70px;
+  border: 2px solid black;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.appblock:hover {
+  box-shadow: 0 5px 3px -3px #777;
+  opacity: 0.9;
+  text-decoration: none 
+}
+
+.app1 {
+  background: image-url('KPI_button.jpg') no-repeat center;
+  background-size: 250px 200px;
+  background-position: 0px 35px;
+}
+
+.app2 {
+  background: image-url('tail-f.png') no-repeat center;
+  background-position: 0px 35px;
+  background-size: 252px 161px;
+}
+
+.app3 {
+  background: image-url('wae.jpg') no-repeat center;
+  margin-right: 0px;
+  background-position: -2px 35px;
 }
