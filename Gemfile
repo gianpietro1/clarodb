@@ -59,3 +59,11 @@ gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'haml-rails'
 # Jquery turbolinks
 gem 'jquery-turbolinks'
+# REST Client
+gem 'rest-client', '~> 1.8.0'
+# JSON parser
+gem 'json'
+# XML parser
+gem 'nokogiri'
+# IP Address operations
+gem 'ipaddress'

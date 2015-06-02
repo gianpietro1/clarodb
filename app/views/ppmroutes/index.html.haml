@@ -1,0 +1,49 @@
+.row.margin-top-25
+  .col-md-1
+  .col-md-10
+    .logotitle
+    %h2.pagetitle
+      Sistema Ágil de Gestión y Provisionamiento
+  .col-md-1
+
+.row
+  .col-md-2
+  .col-md-8
+    %h3
+      Unified MPLS KPI
+  .col-md-2
+.row.margin-top-20.text-center
+  .col-md-2
+  .col-md-8.table-responsive
+    %table.table.table-striped.table-bordered.table-condensed
+      %thead
+        %tr
+          %th.text-center
+            Nodo
+          %th.text-center
+            Modelo
+          %th.text-center
+            Escalabilidad
+          %th.text-center
+            Rutas
+          %th.text-center
+            Estado (%)
+      %tbody
+        - @table.map do |item|
+          %tr
+            %td
+              = item[:node]
+            %td
+              = item[:model]
+            %td
+              = item[:scale]
+            %td
+              = item[:routes]
+            - if item[:status] > 70.00
+              %td.danger
+                = item[:status]
+            - else
+              %td
+                = item[:status]
+
+  .col-md-2
