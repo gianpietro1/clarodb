@@ -2,8 +2,10 @@
   .col-md-1
   .col-md-10
     .logotitle
-    %h2.pagetitle
+    %h2.page_title
       Sistema Ágil de Gestión y Provisionamiento
+    %h4.page_subtitle.margin-top-10
+      Reportes ejecutivos de KPIs
   .col-md-1
 
 .row
@@ -11,11 +13,15 @@
   .col-md-8
     %h3
       Unified MPLS KPI
+      = link_to 'Actualizar', ppmreports_ppmroutes_path, class: 'btn btn-info float-right'
+      .updated
+        Actualizado
+        = Time.zone.now
   .col-md-2
-.row.margin-top-20.text-center
+.row.margin-top-00
   .col-md-2
   .col-md-8.table-responsive
-    %table.table.table-striped.table-bordered.table-condensed
+    %table.table.table-striped.table-bordered.table-condensed.text-center.margin-top-10
       %thead
         %tr
           %th.text-center
@@ -37,13 +43,17 @@
               = item[:model]
             %td
               = item[:scale]
-            %td
-              = item[:routes]
+            - if item[:routes] == '-'
+              %td.danger
+                = item[:routes]
+            -else
+              %td
+                = item[:routes]              
             - if item[:status] > 70.00
               %td.danger
                 = item[:status]
             - else
               %td
                 = item[:status]
-
-  .col-md-2
+    = link_to 'Volver', ppmreports_path, class: 'btn btn-success'
+.col-md-2

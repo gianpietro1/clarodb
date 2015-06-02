@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   get '/dashboard' => 'welcome#index'
 
-  get '/ppm' => 'ppmroutes#index'
+  get '/ppmreports' => 'ppmreports#index'
+  get 'ppmreports/ppmroutes' => 'ppmroutes#index'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

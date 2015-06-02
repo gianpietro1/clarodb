@@ -1,0 +1,37 @@
+.row.margin-top-25
+  .col-md-1
+  .col-md-10
+    .logotitle
+    %h2.page_title
+      Sistema Ágil de Gestión y Provisionamiento
+    %h4.page_subtitle.margin-top-10
+      Reportes ejecutivos de KPIs
+  .col-md-1
+
+.row.margin-top-10
+  .col-md-2
+  .col-md-8
+    %h3
+      Reportes
+.row
+  .col-md-2
+  .col-md-8
+    %table.table.table-striped.table-bordered.table-condensed.text-center
+      %thead
+        %tr
+          %th.text-center
+            Nombre
+          %th.text-center
+            Descripción
+      %tbody
+        %tr
+          %td
+            = link_to 'Unified MPLS KPI', ppmreports_ppmroutes_path
+          %td
+            Estado de rutas por equipo
+  .col-md-2
+
+.row.margin-top-10
+  .col-md-2
+  .col-md-8
+    = link_to 'Volver', dashboard_path, class: 'btn btn-success'

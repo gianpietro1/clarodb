@@ -12,6 +12,11 @@
 .margin-top-40 { margin-top: 4.0em; }
 .margin-top-50 { margin-top: 5.0em; }
 
+.float-left { float: left }
+.float-right { float: right }
+
+// General
+
 .login {
   width: 50%;
   margin: auto;
@@ -43,11 +48,16 @@
   background-size: 50px 50px;
 }
 
-.pagetitle {
-  line-height: 10px;
+.page_title {
+  line-height: 0px;
   margin-left: 60px;
 }
 
+.page_subtitle {
+  line-height: 20px;
+  margin-left: 60px;
+
+}
 .appblock {
   display: block;
   width: 255px;
@@ -87,4 +97,14 @@
   background: image-url('wae.jpg') no-repeat center;
   margin-right: 0px;
   background-position: -2px 35px;
+}
+
+// PPM Routes report
+
+.updated {
+  font-size: small;
+  font-style: italic;
+  float:right;
+  line-height: 2.5em;
+  margin-right: 15px;
 }
