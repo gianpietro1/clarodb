@@ -13,16 +13,26 @@
   .col-md-8
     %h3
       Unified MPLS KPI
-      .updated
-        Actualizado
-        = @ppmroute.created_at.strftime("%d/%m/%Y %H:%M:%S")
   .col-md-2
+
+.row.margin-top-10
+  .col-md-2
+  .col-md-8
+    .float-left 
+      = link_to 'Volver', ppmreports_ppmroutes_path, class: 'btn btn-success'
+    .updated
+      Actualizado
+      = @ppmroute.created_at.strftime("%d/%m/%Y %H:%M:%S")
+  .col-md-2
+
 .row.margin-top-00
   .col-md-2
   .col-md-8.table-responsive
     %table.table.table-striped.table-bordered.table-condensed.text-center.margin-top-10
       %thead
         %tr
+          %th.text-center
+            \#
           %th.text-center
             Nodo
           %th.text-center
@@ -34,8 +44,12 @@
           %th.text-center
             Estado (%)
       %tbody
+        - i = 0
         - @ppmroute[:ppmroutes_array].map do |item|
+          - i += 1
           %tr
+            %td
+              = i
             %td
               = item[:node]
             %td
@@ -54,5 +68,4 @@
             - else
               %td
                 = item[:status]
-    = link_to 'Volver', ppmreports_ppmroutes_path, class: 'btn btn-success'
 .col-md-2

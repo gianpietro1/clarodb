@@ -21,12 +21,26 @@
         - else
           '-'
   .col-md-2
+
+.row.margin-top-10
+  .col-md-2
+  .col-md-8
+    .float-left 
+      = link_to 'Volver', ppmreports_path, class: 'btn btn-success'
+    .float-right
+      = form_tag ppmreports_ppmroute_path(:id), :method => :get do
+        = collection_select(:ppmroute, :id, Ppmroute.all, :id, :created_at, prompt: "10 Reportes anteriores")
+        = submit_tag "Consultar", :name => nil, class: 'btn btn-sm btn-info'
+  .col-md-2
+
 .row.margin-top-00
   .col-md-2
   .col-md-8.table-responsive
     %table.table.table-striped.table-bordered.table-condensed.text-center.margin-top-10
       %thead
         %tr
+          %th.text-center
+            \#
           %th.text-center
             Nodo
           %th.text-center
@@ -39,8 +53,12 @@
             Estado (%)
       %tbody
         - unless Ppmroute.last == nil
+          - i = 0
           - @table.map do |item|
+            - i += 1
             %tr
+              %td
+                = i
               %td
                 = item[:node]
               %td
@@ -59,10 +77,6 @@
               - else
                 %td
                   = item[:status]
-    = link_to 'Volver', ppmreports_path, class: 'btn btn-success'
-    .float-right
-      = form_tag ppmreports_ppmroute_path(:id), :method => :get do
-        = collection_select(:ppmroute, :id, Ppmroute.all, :id, :created_at, prompt: "10 Reportes anteriores")
-        = submit_tag "Consultar", :name => nil, class: 'btn btn-sm btn-info'
+
 .col-md-2
 
