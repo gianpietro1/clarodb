@@ -4,14 +4,17 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     root :to => 'devise/sessions#new'
-  end
-
+  end  
+  
   get '/dashboard' => 'welcome#index'
 
-  get '/ppmreports' => 'ppmreports#index'
-  get 'ppmreports/ppmroutes' => 'ppmroutes#index'
+  resource :ppmreports, only: [:show] do 
+    resources :ppmroutes, only: [:index, :show, :create]
+  end
 
+  
 
+ 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

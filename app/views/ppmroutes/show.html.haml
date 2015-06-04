@@ -1,0 +1,58 @@
+.row.margin-top-25
+  .col-md-1
+  .col-md-10
+    .logotitle
+    %h2.page_title
+      Sistema Ágil de Gestión y Provisionamiento
+    %h4.page_subtitle.margin-top-10
+      Reportes ejecutivos de KPIs - Reporte Unified MPLS KPI
+  .col-md-1
+
+.row
+  .col-md-2
+  .col-md-8
+    %h3
+      Unified MPLS KPI
+      .updated
+        Actualizado
+        = @ppmroute.created_at.strftime("%d/%m/%Y %H:%M:%S")
+  .col-md-2
+.row.margin-top-00
+  .col-md-2
+  .col-md-8.table-responsive
+    %table.table.table-striped.table-bordered.table-condensed.text-center.margin-top-10
+      %thead
+        %tr
+          %th.text-center
+            Nodo
+          %th.text-center
+            Modelo
+          %th.text-center
+            Escalabilidad
+          %th.text-center
+            Rutas
+          %th.text-center
+            Estado (%)
+      %tbody
+        - @ppmroute[:ppmroutes_array].map do |item|
+          %tr
+            %td
+              = item[:node]
+            %td
+              = item[:model]
+            %td
+              = item[:scale]
+            - if item[:routes] == '-'
+              %td.danger
+                = item[:routes]
+            -else
+              %td
+                = item[:routes]              
+            - if item[:status] > 70.00
+              %td.danger
+                = item[:status]
+            - else
+              %td
+                = item[:status]
+    = link_to 'Volver', ppmreports_ppmroutes_path, class: 'btn btn-success'
+.col-md-2

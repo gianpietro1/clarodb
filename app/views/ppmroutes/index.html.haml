@@ -5,7 +5,7 @@
     %h2.page_title
       Sistema Ágil de Gestión y Provisionamiento
     %h4.page_subtitle.margin-top-10
-      Reportes ejecutivos de KPIs
+      Reportes ejecutivos de KPIs - Reporte Unified MPLS KPI
   .col-md-1
 
 .row
@@ -13,10 +13,13 @@
   .col-md-8
     %h3
       Unified MPLS KPI
-      = link_to 'Actualizar', ppmreports_ppmroutes_path, class: 'btn btn-info float-right'
+      = link_to 'Actualizar', ppmreports_ppmroutes_path, method: :post, class: 'btn btn-warning float-right'
       .updated
         Actualizado
-        = Time.zone.now
+        - unless Ppmroute.last == nil
+          = Ppmroute.last.created_at.strftime("%d/%m/%Y %H:%M:%S")
+        - else
+          '-'
   .col-md-2
 .row.margin-top-00
   .col-md-2
@@ -35,25 +38,31 @@
           %th.text-center
             Estado (%)
       %tbody
-        - @table.map do |item|
-          %tr
-            %td
-              = item[:node]
-            %td
-              = item[:model]
-            %td
-              = item[:scale]
-            - if item[:routes] == '-'
-              %td.danger
-                = item[:routes]
-            -else
+        - unless Ppmroute.last == nil
+          - @table.map do |item|
+            %tr
               %td
-                = item[:routes]              
-            - if item[:status] > 70.00
-              %td.danger
-                = item[:status]
-            - else
+                = item[:node]
               %td
-                = item[:status]
+                = item[:model]
+              %td
+                = item[:scale]
+              - if item[:routes] == '-'
+                %td.danger
+                  = item[:routes]
+              -else
+                %td
+                  = item[:routes]              
+              - if item[:status] > 70.00
+                %td.danger
+                  = item[:status]
+              - else
+                %td
+                  = item[:status]
     = link_to 'Volver', ppmreports_path, class: 'btn btn-success'
+    .float-right
+      = form_tag ppmreports_ppmroute_path(:id), :method => :get do
+        = collection_select(:ppmroute, :id, Ppmroute.all, :id, :created_at, prompt: "10 Reportes anteriores")
+        = submit_tag "Consultar", :name => nil, class: 'btn btn-sm btn-info'
 .col-md-2
+

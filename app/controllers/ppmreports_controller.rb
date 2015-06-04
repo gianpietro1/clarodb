@@ -1,6 +1,6 @@
 class PpmreportsController < ApplicationController
 
-  def index
+  def show
 
   end
 
