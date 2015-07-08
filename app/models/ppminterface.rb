@@ -7,7 +7,8 @@ class Ppminterface < ActiveRecord::Base
   require 'csv'
 
   def self.transport_stats
-    base_url = 'http://ppm16-demo.cisco.com:4440/ppm/rest/reports/Transport+Statistics/Interface/Interface+Bit+Rates?outputType=jsonv2&durationSelect=last3Days&intervalTypeKey=QUARTER_HOUR'
+    #base_url = 'http://ppm16-demo.cisco.com:4440/ppm/rest/reports/Transport+Statistics/Interface/Interface+Bit+Rates?outputType=jsonv2&durationSelect=last3Days&intervalTypeKey=QUARTER_HOUR'
+    base_url = "https://#{ENV['PPM_CREDENTIALS']}@172.19.212.8:4440/ppm/rest/reports/Transport+Statistics/Interface/Interface+Bit+Rates?outputType=jsonv2&durationSelect=last3Days&intervalTypeKey=QUARTER_HOUR"
     data = RestClient::Request.execute(:url => base_url , :method => :get, :verify_ssl => false)
     data_parsed = JSON.load(data)
     return data_parsed["report"]["data"]
