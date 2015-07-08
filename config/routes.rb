@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'ppminternets/index'
+
+  get 'ppminternets/show'
+
   devise_for :users
 
   devise_scope :user do
@@ -10,6 +14,7 @@ Rails.application.routes.draw do
 
   resource :ppmreports, only: [:show] do 
     resources :ppmroutes, only: [:index, :show, :create]
+    resources :ppminterfaces, only: [:index, :show, :create]
   end
 
   

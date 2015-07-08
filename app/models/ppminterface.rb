@@ -1,4 +1,6 @@
-class Ppminternet < ActiveRecord::Base
+class Ppminterface < ActiveRecord::Base
+
+  serialize :ppminterfaces_array
 
   require 'rest-client'
   require 'json'
@@ -11,22 +13,22 @@ class Ppminternet < ActiveRecord::Base
     return data_parsed["report"]["data"]
   end
 
-  def self.devint
-    return CSV.read(Rails.root + "public/devint.csv")
+  def self.devint(interfaces_file)
+    return CSV.read(Rails.root + "public/#{interfaces_file}.csv")
   end
 
-  def self.interface_table
+  def self.interface_table(interfaces_file)
     @table = Hash.new { |hash, key| hash[key] = [] }
     table_total = Array.new []
     data = transport_stats
 
     devices = Array.new
-    devint.each do |devint|
+    devint(interfaces_file).each do |devint|
       devices << devint[0]
     end
 
     interfaces = Hash.new { |hash,key| hash[key] = [] }
-    devint.each { |x,y| interfaces[x] << y }
+    devint(interfaces_file).each { |x,y| interfaces[x] << y }
     
     data.map do |item|
       if devices.include? item[0]

@@ -1,0 +1,62 @@
+.row.margin-top-25
+  .col-md-1
+  .col-md-10
+    .logotitle
+    %h2.page_title
+      Sistema Ágil de Gestión y Provisionamiento
+    %h4.page_subtitle.margin-top-10
+      Reportes ejecutivos de KPIs - Reporte Interfaces Internet
+  .col-md-1
+
+.row
+  .col-md-2
+  .col-md-8
+    %h3
+      Interfaces Internet
+  .col-md-2
+
+.row.margin-top-10
+  .col-md-2
+  .col-md-8
+    .float-left 
+      = link_to 'Volver', ppmreports_ppminterfaces_path, class: 'btn btn-success'
+    .updated
+      Actualizado
+      = @ppminterface.created_at.strftime("%d/%m/%Y %H:%M:%S")
+  .col-md-2
+
+.row.margin-top-00
+  .col-md-2
+  .col-md-8.table-responsive
+    %table.table.table-striped.table-bordered.table-condensed.text-center.margin-top-10
+      %thead
+        %tr
+          %th.text-center
+            \#
+          %th.text-center
+            Nodo
+          %th.text-center
+            Interfaz
+          %th.text-center
+            Bits por segundo (Tx)
+          %th.text-center
+            Bits por segundo (Rx)
+      %tbody
+        - unless Ppminterface.last == nil
+          - i = 0
+          - @ppminterface[:ppminterfaces_array].map do |item|
+            - i += 1
+            %tr
+              %td
+                = i
+              %td
+                = item[:node]
+              %td
+                = item[:interface]
+              %td
+                = item[:bps_tx]
+              %td
+                = item[:bps_rx]
+
+.col-md-2
+

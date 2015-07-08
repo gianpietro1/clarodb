@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707210224) do
+ActiveRecord::Schema.define(version: 20150708164903) do
 
-  create_table "ppminternets", force: :cascade do |t|
-    t.text     "ppminternets_array"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+  create_table "ppminterfaces", force: :cascade do |t|
+    t.text     "ppminterfaces_array"
+    t.string   "type"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "ppmroutes", force: :cascade do |t|
