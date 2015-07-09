@@ -26,8 +26,7 @@
   .col-md-2
 
 .row.margin-top-00
-  .col-md-2
-  .col-md-8.table-responsive
+  .col-md-11.table-responsive.margin-left-60
     %table.table.table-striped.table-bordered.table-condensed.text-center.margin-top-10
       %thead
         %tr
@@ -38,9 +37,33 @@
           %th.text-center
             Interfaz
           %th.text-center
-            Bits por segundo (Tx)
+            IRU
           %th.text-center
-            Bits por segundo (Rx)
+            Tier One
+          %th.text-center
+            Enlace
+          %th.text-center
+            Lugar
+          %th.text-center
+            Ruta
+          %th.text-center
+            Perú
+          %th.text-center
+            Fecha Activ
+          %th.text-center
+            Max Gbps Tx
+            %br
+            (3 días)
+          %th.text-center
+            Max Gbps Rx
+            %br
+            (3 días)
+          %th.text-center
+            Utilización % Tx
+          %th.text-center
+            Utilización % Rx
+          %th.text-center
+            Comentarios
       %tbody
         - unless Ppminterface.last == nil
           - i = 0
@@ -52,11 +75,31 @@
               %td
                 = item[:node]
               %td
-                = item[:interface]
+                = item[:interface][0]
+              %td
+                = item[:iru]
+              %td
+                = item[:tier1]
+              %td
+                = item[:link]
+              %td
+                = item[:remote_site]
+              %td
+                = item[:route]
+              %td
+                = item[:local_site]
+              %td
+                = item[:activation_date]
               %td
                 = item[:bps_tx]
               %td
                 = item[:bps_rx]
+              %td
+                = item[:utilization_tx]
+              %td
+                = item[:utilization_rx]
+              %td
+                = item[:comments]
 
 .col-md-2
 

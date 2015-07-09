@@ -19,7 +19,7 @@ class PpminterfacesController < ApplicationController
 
   def create
     @ppminterfaces = Ppminterface.all
-    @ppminterface = Ppminterface.create(:ppminterfaces_array => Ppminterface.interface_table("internet"))
+    @ppminterface = Ppminterface.create(:ppminterfaces_array => Ppminterface.interface_table_internet("internet"))
     if @ppminterface.save
       @ppminterface.created_at.in_time_zone('Eastern Time (US & Canada)')
       flash[:notice] = "Reporte actualizado y almacenado."
