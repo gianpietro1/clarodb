@@ -21,6 +21,7 @@ class Ppminterface < ActiveRecord::Base
   def self.interface_table_internet(interfaces_file)
     @table = Hash.new { |hash, key| hash[key] = [] }
     table_total = Array.new []
+    not_found = Array.new []
     data = transport_stats
 
     devices = Array.new []
@@ -35,11 +36,13 @@ class Ppminterface < ActiveRecord::Base
     }
     
     data.map do |item|
-      if devices.include? item[0]
-        if interfaces[item[0]][0].include? item[1]
-          hash1 = Hash[bps_tx: item[6].gsub(/,/, '').to_f, bps_rx: item[7].gsub(/,/, '').to_f]
-          keystring = (item[0].to_s + item[1].to_s).to_s
-          @table[keystring] << hash1
+      if (devices.include? item[0])
+        interfaces[item[0]].map do |interface|
+          if interface[0].include? item[1]
+            hash1 = Hash[bps_tx: item[6].gsub(/,/, '').to_f, bps_rx: item[7].gsub(/,/, '').to_f]
+            keystring = (item[0].to_s + item[1].to_s).to_s
+            @table[keystring] << hash1
+          end
         end
       end
     end
@@ -47,24 +50,29 @@ class Ppminterface < ActiveRecord::Base
     devices.each do |device|
       interfaces[device].each do |interface|
         keystring = (device.to_s + interface[0].to_s).to_s
-        maxtx = ((@table[keystring].sort { |a,b| a[:bps_tx] <=> b[:bps_tx] }.last[:bps_tx])/1000000000).round(2)
-        maxrx = ((@table[keystring].sort { |a,b| a[:bps_rx] <=> b[:bps_rx] }.last[:bps_rx])/1000000000).round(2)
-        hash2 = Hash[node: device,
-          iru: extra_data[device][:iru], 
-          tier1: extra_data[device][:tier1],
-          link: extra_data[device][:link],
-          remote_site: extra_data[device][:remote_site],
-          route: extra_data[device][:route],
-          local_site: extra_data[device][:local_site],
-          activation_date: extra_data[device][:activation_date],
-          comments: extra_data[device][:comments],
-          interface: interface, bps_tx: maxtx, bps_rx: maxrx,
-          utilization_tx: (maxtx/interface[1].round(2))*100.00,
-          utilization_rx: (maxrx/interface[1].round(2))*100.00 ]
-        table_total << hash2
+        if @table[keystring] != []
+          maxtx = ((@table[keystring].sort { |a,b| a[:bps_tx] <=> b[:bps_tx] }.last[:bps_tx])/1000000000).round(2)
+          maxrx = ((@table[keystring].sort { |a,b| a[:bps_rx] <=> b[:bps_rx] }.last[:bps_rx])/1000000000).round(2)
+          hash2 = Hash[node: device,
+            iru: extra_data[device][:iru], 
+            tier1: extra_data[device][:tier1],
+            link: extra_data[device][:link],
+            remote_site: extra_data[device][:remote_site],
+            route: extra_data[device][:route],
+            local_site: extra_data[device][:local_site],
+            activation_date: extra_data[device][:activation_date],
+            comments: extra_data[device][:comments],
+            interface: interface, bps_tx: maxtx, bps_rx: maxrx,
+            utilization_tx: (maxtx/interface[1].round(2))*100.00,
+            utilization_rx: (maxrx/interface[1].round(2))*100.00 ]
+          table_total << hash2
+        else
+          not_found << [device,interface]
+        end
       end
     end
 
+    puts "Devices not found: " + not_found.to_s
     return table_total
 
  end
