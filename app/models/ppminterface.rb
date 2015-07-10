@@ -30,7 +30,9 @@ class Ppminterface < ActiveRecord::Base
 
     devint(interfaces_file).each { 
       |a,b,c,d,e,f,g,h,i,j,k| interfaces[a] << [b,c.to_f]
-      devices << a      
+      unless devices.include? a
+        devices << a      
+      end
       extra_data[a] = Hash[iru: d.to_s,tier1: e.to_s,remote_site: f.to_s,
         link: g.to_s, route: h.to_s,local_site: i.to_s,activation_date: j.to_s,comments: k.to_s]
     }
