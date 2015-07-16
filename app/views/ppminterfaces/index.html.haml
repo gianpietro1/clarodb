@@ -33,7 +33,7 @@
         = submit_tag "Consultar", :name => nil, class: 'btn btn-sm btn-info'
 
 .row.margin-top-00
-  .col-md-11.table-responsive.margin-left-60
+  .col-md-12.table-responsive
     %table.table.table-striped.table-bordered.table-condensed.text-center.margin-top-10
       %thead
         %tr
@@ -82,7 +82,7 @@
               %td
                 = item[:node]
               %td
-                = item[:interface][0]
+                = item[:interface]
               %td
                 = item[:iru]
               %td
@@ -101,9 +101,17 @@
                 = item[:bps_tx]
               %td
                 = item[:bps_rx]
-              %td
-                = item[:utilization_tx]
-              %td
-                = item[:utilization_rx]
+              - if item[:utilization_tx] > 70.00
+                %td.danger
+                  = item[:utilization_tx]
+              - else
+                %td
+                  = item[:utilization_tx]
+              - if item[:utilization_rx] > 70.00
+                %td.danger
+                  = item[:utilization_rx]
+              - else
+                %td
+                  = item[:utilization_rx]
               %td
                 = item[:comments]
