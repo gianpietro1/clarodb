@@ -5,7 +5,7 @@
     %h2.page_title
       Sistema Ágil de Gestión y Provisionamiento
     %h4.page_subtitle.margin-top-10
-      Provisionamiento multi-fabricante
+      Ingeniería de Tráfico - Sitios
   .col-md-1
 %hr
 
@@ -13,7 +13,8 @@
   .col-md-2
   .col-md-8
     %h3
-      Funciones
+      Sitios
+
 .row
   .col-md-2
   .col-md-8
@@ -21,15 +22,16 @@
       %thead
         %tr
           %th.text-center
-            Nombre
+            Sitio
           %th.text-center
             Descripción
       %tbody
-        %tr
-          %td
-            = link_to 'Equipos y direccionamiento', '#'
-          %td
-            Equipos del Core y direccionamiento IP
+        - @sites.each do |site|
+          %tr
+            %td
+              = link_to site, '#'
+            %td
+              = '-'
   .col-md-2
 .row.margin-top-10
   .col-md-2

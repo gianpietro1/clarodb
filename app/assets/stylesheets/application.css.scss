@@ -18,6 +18,10 @@
 .float-left { float: left }
 .float-right { float: right }
 
+th, td {
+  vertical-align: middle !important
+}
+
 // General
 
 .login {
@@ -61,6 +65,15 @@
   margin-left: 60px;
 
 }
+
+.apps-draft {
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 10px;
+  min-height: 400px;
+  width: 1000px;
+}
+  
 .appblock {
   display: block;
   width: 255px;

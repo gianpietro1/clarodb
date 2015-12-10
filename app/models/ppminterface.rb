@@ -8,8 +8,8 @@ class Ppminterface < ActiveRecord::Base
 
   def self.transport_stats(ip_address)
     fqdn = '&FQDN=Node%3D' + ip_address
-    #base_url = 'http://ppm16-demo.cisco.com:4440/ppm/rest/reports/Transport+Statistics/Interface/Interface+Bit+Rates?outputType=jsonv2&durationSelect=last3Days' + fqdn
-    base_url = "https://#{ENV['PPM_CREDENTIALS']}@172.19.212.8:4440/ppm/rest/reports/Transport+Statistics/Interface/Interface+Bit+Rates?outputType=jsonv2&durationSelect=last3Days&intervalTypeKey=QUARTER_HOUR" + fqdn
+    base_url = 'http://ppm16-demo.cisco.com:4440/ppm/rest/reports/Transport+Statistics/Interface/Interface+Bit+Rates?outputType=jsonv2&durationSelect=last3Days' + fqdn
+    #base_url = "https://#{ENV['PPM_CREDENTIALS']}@172.19.212.8:4440/ppm/rest/reports/Transport+Statistics/Interface/Interface+Bit+Rates?outputType=jsonv2&durationSelect=last3Days&intervalTypeKey=QUARTER_HOUR" + fqdn
     data = RestClient::Request.execute(:url => base_url , :method => :get, :verify_ssl => false)
     data_parsed = JSON.load(data)
     return data_parsed["report"]["data"]
@@ -23,7 +23,7 @@ class Ppminterface < ActiveRecord::Base
     interfaces_file = 'internet'
     @table = Hash.new { |hash, key| hash[key] = [] }
     @table_total = Array.new []
-    not_found = Array.new []
+    @not_found = Array.new []
 
     devices = Array.new []
     extra_data = Hash.new { |hash,key| hash[key] = [] }
@@ -45,9 +45,9 @@ class Ppminterface < ActiveRecord::Base
       data[device[0]] = Ppminterface.transport_stats(device[1])
       data[device[0]].map do |item|
         interfaces[device[0]].map do |interface|
-         if interface[0].include? item[0]
-            hash1 = Hash[bps_tx: item[5].gsub(/,/, '').to_f, bps_rx: item[6].gsub(/,/, '').to_f]
-            keystring = (device[0].to_s + item[0].to_s).to_s
+         if interface[0].include? item[3]
+            hash1 = Hash[bps_tx: item[5].gsub(/,/, '').to_f, bps_rx: item[6].gsub(/,/, '').to_f, int: item[0]]
+            keystring = (device[0].to_s + item[3].to_s).to_s
             @table[keystring] << hash1
          end
         end
@@ -60,6 +60,17 @@ class Ppminterface < ActiveRecord::Base
         if @table[keystring] != []
           maxtx = ((@table[keystring].sort { |a,b| a[:bps_tx] <=> b[:bps_tx] }.last[:bps_tx])/1000000000).round(2)
           maxrx = ((@table[keystring].sort { |a,b| a[:bps_rx] <=> b[:bps_rx] }.last[:bps_rx])/1000000000).round(2)
+          int = @table[keystring].first[:int]
+          if int.include? "Bundle-Ether"
+            pos = 0
+            positions = []
+            while (pos = int.index("-", pos + 1))
+              positions << pos
+            end
+            #int = int[positions[-2]+1..-1]
+          else
+            #int = int[int.rindex('-')+1..-1]
+          end
           hash2 = Hash[node: device[0],
             iru: extra_data[keystring][:iru], 
             tier1: extra_data[keystring][:tier1],
@@ -69,8 +80,8 @@ class Ppminterface < ActiveRecord::Base
             local_site: extra_data[keystring][:local_site],
             activation_date: extra_data[keystring][:activation_date],
             comments: extra_data[keystring][:comments],
-            interface: interface[0][interface[0].rindex('-')+1..-1], 
-            #interface: interface[0], 
+            #interface: int[int.rindex('-')+1..-1], 
+            interface: int, 
             bps_tx: maxtx, bps_rx: maxrx,
             utilization_tx: ((maxtx/interface[1])*100.00).round(2),
             utilization_rx: ((maxrx/interface[1])*100.00).round(2) ]

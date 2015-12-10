@@ -6,3 +6,7 @@ rMPLSPolo1BR2,INTX OUTSIDE CGNAT-ServiceApp10,20,CGNAT,Core,CGNAT - Polo1,-,Paci
 rMPLSPolo1BR2,INTX OUTSIDE CGNAT Plus-ServiceApp20,73,CGNAT,Core,CGNAT - Polo1,-,Pacifico,Polo1,2014,-
 rMPLSPolo1BR2,[BORDE - CORE] IDE 613923 INTX Claro Peru rMPLSPolo1BR2 Hu0/11/0-HundredGigE0/11/0/0,100,Local,Core,Core - Polo1,-,Pacifico,Polo1,2013,-
 rMPLSPolo1BR2,[BORDE - CORE] IDE XXXXXX INTX Claro Peru S.A. Nodo Polo1 rMPLSP-Bundle-Ether1,40,Local,Core,Core - Polo1,-,Pacifico,Polo1,2013,-
+
+
+[BORDE - CORE] IDE 614189 INTX Claro Peru S.A. rMPLSVillaSalvado-HundredGigE0/11/0/0
+[BORDE - CORE] IDE 614189 INTX Claro Peru S.A. rMPLSVillaSalvado-Bundle-Ether10

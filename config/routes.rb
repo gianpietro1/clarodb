@@ -15,8 +15,12 @@ Rails.application.routes.draw do
 
   resource :tailfpages, only: [:show] do 
   end
-  
 
+  resources :waesites, only: [:index,:show] do
+   resources :waenodes, only: [:index,:show] do
+    resources :waeinterfaces, only: [:index,:show]
+   end
+  end
  
 
   # The priority is based upon order of creation: first created -> highest priority.
